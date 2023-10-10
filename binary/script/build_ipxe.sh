@@ -147,6 +147,13 @@ function hasUname() {
     fi
 }
 
+function mv_into_upstream() {
+    local ipxe_dir="$1"
+    local upstream_dir="$2"
+
+    cp -a "${ipxe_dir}" "${upstream_dir}"
+}
+
 # main function orchestrating a full ipxe compile.
 function main() {
     local bin_path
@@ -166,7 +173,7 @@ function main() {
 
     # check for prerequisites
     hasType
-    hasNixShell
+    #hasNixShell
     hasUname
     local OS_TEST
     OS_TEST=$(uname | tr '[:upper:]' '[:lower:]')
@@ -176,6 +183,8 @@ function main() {
 
     download_ipxe_repo "${ipxe_sha_or_tag}"
     extract_ipxe_repo "ipxe-${ipxe_sha_or_tag}.tar.gz" "upstream-${ipxe_sha_or_tag}"
+    # Replace /home/<user>/go/src/ipxe/ with local ipxe repository path an uncomment the row
+    #mv_into_upstream "/home/<user>/go/src/ipxe/" "upstream-${ipxe_sha_or_tag}"
     mv_embed_into_build "${embed_path}" "upstream-${ipxe_sha_or_tag}"
     customize "upstream-${ipxe_sha_or_tag}" "${bin_path}"
     build_ipxe "upstream-${ipxe_sha_or_tag}" "${bin_path}" "${ipxe_build_in_docker}" "${env_opts}" "embed.ipxe" "${nix_shell}"

@@ -15,7 +15,8 @@ binary: binary/ipxe.efi binary/snp.efi binary/undionly.kpxe ## build all upstrea
 ipxe_sha_or_tag := $(shell cat binary/script/ipxe.commit)
 
 # building iPXE on a Mac is troublesome and difficult to get working. For that reason, on a Mac, we build the iPXE binary using Docker.
-ipxe_build_in_docker := $(shell if [ $(OSFLAG) = "darwin" ]; then echo true; else echo false; fi)
+#ipxe_build_in_docker := $(shell if [ $(OSFLAG) = "darwin" ]; then echo true; else echo false; fi)
+ipxe_build_in_docker := true
 
 binary/ipxe.efi: ## build ipxe.efi
 	${IPXE_BUILD_SCRIPT} bin-x86_64-efi/ipxe.efi "$(ipxe_sha_or_tag)" $(ipxe_build_in_docker) $@ "${IPXE_NIX_SHELL}"
