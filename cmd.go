@@ -38,7 +38,7 @@ type Command struct {
 	// This option is required when running in a container that doesn't bind to the hosts
 	// network because this type of dynamic port allocation is not generally supported.
 	//
-	// This option is specific to github.com/pin/tftp. The pin/tftp library says this option is
+	// This option is specific to github.com/pin/tftp/v3. The pin/tftp library says this option is
 	// experimental and "Enabling this will negatively impact performance". Please take this into
 	// consideration when using this option.
 	EnableTFTPSinglePort bool
